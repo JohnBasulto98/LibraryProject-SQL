@@ -1,0 +1,124 @@
+--Libary Project 
+
+
+--Gather the UK's TOP 25 Seliing Books OF ALL TIME to be selected 
+
+
+--https://www.theguardian.com/news/datablog/2012/aug/09/best-selling-books-all-time-fifty-shades-grey-compare
+
+
+
+--Info on the authors (First & Last name/ Date of Birth/Death)
+
+
+--Creating both tables
+CREATE TABLE LibraryRepository
+	(bookid INT IDENTITY(1001,1),
+	authorid INT,
+	book_title varchar(255),
+	author varchar(255),
+	age INT,
+	publication_date DATE,
+	units_sold INT);
+
+
+CREATE TABLE AuthorInfo
+	(authorid INT,
+	firstname varchar(255),
+	lastname varchar(255),
+	birth DATE,
+	death DATE);
+
+--
+
+
+--
+
+
+--Inserting the data into both tables
+
+
+
+INSERT INTO LibraryRepository VALUES
+(1,'Da Vinci Code', 'Brown,Dan',58, '2004-03-01',5094805),
+(8,'Harry Potter and the Deathly Hallows', 'Rowling, J.K.',57,'2007-07-21',4475152),
+(8,'Harry Potter and the Philosophers Stone', 'Rowling, J.K.',57,'1997-06-26',4200654),
+(8,'Harry Potter and the Order of the Phoenix', 'Rowling, J.K.',57,'2003-04-26',4179479),
+(5,'Fifty Shades of Grey', 'James, E. L.',59,'2012-04-12',3758936),
+(8,'Harry Potter and the Goblet of Fire', 'Rowling, J.K.',57,'2001-03-24',3583215),
+(8,'Harry Potter and the Chamber of Secrets', 'Rowling, J.K.',57,'1999-01-02',3484047),
+(8,'Harry Potter and the Prisoner of Azkaban', 'Rowling, J.K.',57,'2000-04-01',3377906),
+(1,'Angels and Demons','Brown,Dan',58,'2003-07-01',3193946),
+(8,'Harry Potter and the Half-blood Prince:Childrens Edition','Rowling, J.K.',57,'2005-04-09',2950264),
+(5,'Fifty Shades Darker','James, E. L.',59,'2012-04-26',2479784),
+(7,'Twilight','Meyer, Stephenie',48,'2006-12-09',2315405),
+(6,'The Girl With The Dragon Tattoo','Larsson, Stieg',50,'2008-07-24',2233570),
+(5,'Fifty Shades Freed','James, E. L.',59,'2012-04-26',2193928),
+(1,'The Lost Symbol','Brown,Dan',58,'2009-04-25',2183031),
+(7,'New Moon','Meyer, Stephenie',48,'2007-09-06',2152737),
+(1,'Deception Point','Brown,Dan',58,'2004-05-01',2062145),
+(7,'Eclipse','Meyer, Stephenie',48,'2008-06-27',2052876),
+(9,'The Lovely Bones','Sebold, Alice',58,'2003-06-06',2005598),
+(4,'The Curious Incident of the Dog in the Night-time','Haddon, Mark',59,'2004-04-01',1979552),
+(1,'Digital Fortress','Brown,Dan',58,'2004-03-05',1928900),
+(2,'A Short History of Nearly Everything','Bryson, Bill',70,'2004-06-01',1852919),
+(6,'The Girl Who Played with Fire','Larsson, Stieg',50,'2009-07-09',1814784),
+(7,'Breaking Dawn','Meyer, Stephenie',48,'2008-05-24',1787118),
+(3,'The Very Hungry Caterpillar','Carle, Eric',91,'1994-09-29',1783535);
+
+--There is 9 unique authors
+--Brown,Dan
+--Bryson, Bill
+--Carle,Eric
+--Haddon,Mark
+--James, E.L.
+--Larsson, Stieg
+--Meyer, Stephenie
+--Rowling, J.K.
+--Sebold,Alice
+
+
+--Insert INTO the AuthorInfo Table
+
+INSERT INTO AuthorInfo VALUES
+(1,'Dan','Brown','1964-06-22',NULL),
+(2,'Bill','Bryson','1951-12-08',NULL),
+(3,'Eric','Carle','1929-06-25','2021-05-23'),
+(4,'Mark','Haddon','1962-10-28',NULL),
+(5,'E.L.','James','1963-03-07',NULL),
+(6,'Stieg','Larsson','1954-08-15','2004-11-09'),
+(7,'Stephenie','Meyer','1973-12-24',NULL),
+(8,'J.K.','Rowling','1965-07-31',NULL),
+(9,'Alice','Sebold','1963-09-06',NULL);
+
+
+
+
+
+--Run some queries
+
+SELECT *
+FROM LibraryRepository;
+
+SELECT *
+FROM AuthorInfo;
+
+SELECT AVG(age) AS AVERAGE_AGE
+FROM LibraryRepository;
+
+--The single book with the most volume MAX function
+SELECT author,COUNT(book_title) AS DifferentBooks, SUM(units_sold) AS GRAND_TOTAL
+FROM LibraryRepository
+GROUP BY author;
+
+
+
+SELECT LibraryRepository.authorid,book_title,author,birth, age,death
+FROM LibraryRepository
+JOIN AuthorInfo
+ON LibraryRepository.authorid= AuthorInfo.authorid
+WHERE death IS NOT NULL
+ORDER BY LibraryRepository.authorid ASC;
+
+
+	
